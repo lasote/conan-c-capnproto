@@ -8,13 +8,11 @@ environment:
     CONAN_REFERENCE: "c-capnproto/0.1"
     CONAN_USERNAME: "lasote"
     CONAN_CHANNEL: "ci"
-    CONAN_TOTAL_PAGES: 4
+    CONAN_TOTAL_PAGES: 1
+    CONAN_VISUAL_VERSIONS: 14
     
     matrix:
         - CONAN_CURRENT_PAGE: 1
-        - CONAN_CURRENT_PAGE: 2  
-        - CONAN_CURRENT_PAGE: 3
-        - CONAN_CURRENT_PAGE: 4
 
 install:
   - set PATH=%PATH%;%PYTHON%/Scripts/
