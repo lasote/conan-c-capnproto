@@ -37,7 +37,8 @@ class CapNProtoConan(ConanFile):
         os.mkdir(os.path.join(self.ZIP_FOLDER_NAME, "_build"))
         cd_build = "cd %s/_build" % self.ZIP_FOLDER_NAME
         shared = "-DBUILD_SHARED_LIBS=ON" if self.options.shared else ""
-        cmake_1 = '%s && cmake ../../ %s %s' % (cd_build, cmake.command_line, shared)
+        fpic = "-DFPIC=ON" if self.options.fPIC else ""
+        cmake_1 = '%s && cmake ../../ %s %s %s' % (cd_build, cmake.command_line, shared, fpic)
         self.output.warn(cmake_1)
         self.run(cmake_1)
         cmake_2 = "%s && cmake --build . %s" % (cd_build, cmake.build_config)
