@@ -7,7 +7,7 @@ from conans import CMake
 class CapNProtoConan(ConanFile):
     name = "c-capnproto"
     version = "0.1"
-    commit_sha = "a15accf4eb5824c10a3bf2e5e67f6b47abb4ca1e"
+    commit_sha = "7184c57c4f7ded461d4598c2506198a9390ffb09"
     ZIP_FOLDER_NAME = "c-capnproto-%s" % commit_sha
     generators = "cmake"
     settings = "os", "arch", "compiler", "build_type"
@@ -25,10 +25,10 @@ class CapNProtoConan(ConanFile):
                 self.options.remove("fPIC")
             except: 
                 pass
-        
+
     def source(self):
         zip_name = "%s.zip" % self.commit_sha
-        download("https://github.com/opensourcerouting/c-capnproto/archive/%s" % zip_name, zip_name)
+        download("https://github.com/imazen/c-capnproto/archive/%s" % zip_name, zip_name)
         unzip(zip_name)
         os.unlink(zip_name)
 
