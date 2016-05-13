@@ -23,6 +23,7 @@ class CapNProtoConan(ConanFile):
         if self.settings.os == "Windows":
             try:
                 self.options.remove("fPIC")
+                self.options.remove("shared")
             except: 
                 pass
 
@@ -36,7 +37,7 @@ class CapNProtoConan(ConanFile):
         cmake = CMake(self.settings)
         os.mkdir(os.path.join(self.ZIP_FOLDER_NAME, "_build"))
         cd_build = "cd %s/_build" % self.ZIP_FOLDER_NAME
-        shared = "-DBUILD_SHARED_LIBS=ON" if self.options.shared else ""
+        shared = "-DBUILD_SHARED_LIBS=ON" if self.settings.os != "Windows" and self.options.shared else ""
         fpic = "-DFPIC=ON" if self.settings.os != "Windows" and self.options.fPIC else ""
         cmake_1 = '%s && cmake ../../ %s %s %s' % (cd_build, cmake.command_line, shared, fpic)
         self.output.warn(cmake_1)
@@ -54,8 +55,6 @@ class CapNProtoConan(ConanFile):
          
         # Copying static and dynamic libs
         if self.settings.os == "Windows":
-            if self.options.shared:
-                self.copy(pattern="*.dll", dst="bin", src="%s/_build" % self.ZIP_FOLDER_NAME, keep_path=False)
             self.copy(pattern="*.lib", dst="lib", src="%s/_build" % self.ZIP_FOLDER_NAME, keep_path=False)
         else:
             if self.options.shared:
